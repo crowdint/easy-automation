@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    easy-automation (0.0.1)
+      Selenium
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    Selenium (1.1.14)
+    diff-lcs (1.1.2)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  easy-automation!
+  rspec (>= 2.3.0)

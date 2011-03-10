@@ -1,0 +1,4 @@
+login_link: Log In
+query_field: q
+submit: xpath=id('submit')
+title: Home Page
