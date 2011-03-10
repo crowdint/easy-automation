@@ -25,8 +25,8 @@ module EasyAutomation
     #   or use a global one.
     #
     def setup
-      @verification_errors = []
-#      @webpage             = $selenium.open("*#{Flags.browser}", Flags.url)
+      @webpage             = EasyAutomation::Server.rc.open(EasyAutomation::Runner.configuration.browser,
+                                                            EasyAutomation::Runner.configuration.url)
       @data                = LoadData::load_test_data(self.class.to_s, @method_name, @path)
     end
 
@@ -35,7 +35,6 @@ module EasyAutomation
     #
     def teardown
       @webpage.close
-      assert_equal [], @verification_errors
     end
 
   end

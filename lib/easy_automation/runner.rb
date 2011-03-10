@@ -33,9 +33,9 @@ module EasyAutomation
 
       def run test_suite
         raise RunnerSuiteException.new('Wrong test suite class') unless test_suite.is_a?(EasyAutomation::Suite)
-        server.selenium.start
+        EasyAutomation::Server.rc.start
         Test::Unit::UI::Console::TestRunner.run test_suite
-        server.selenium.stop
+        EasyAutomation::Server.rc.stop
       end
     end
   end
