@@ -25,4 +25,18 @@ describe EasyAutomation::Runner do
       EasyAutomation::Runner.configuration.url.should == "http://www.yahoo.com"
     end
   end
+
+  context "when running tests" do
+    before :each do
+      @rc = mock(EasyAutomation::Server)
+      EasyAutomation::Server.stub(:rc).and_return(@rc)
+    end
+    it "should accept EasyAutomation::Suite classes" do
+      Test::Unit::UI::Console::TestRunner.stub(:run).and_return(true)
+      @rc.should_receive(:start)
+      @rc.should_receive(:stop)
+      suite = EasyAutomation::Suite.new
+      lambda {EasyAutomation::Runner.run suite}.should_not raise_error(EasyAutomation::RunnerSuiteException)
+    end
+  end
 end

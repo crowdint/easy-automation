@@ -13,18 +13,19 @@ describe EasyAutomation::Suite do
         end
       end
       my_suite = EasyAutomation::Suite.new
-      test  = WrongTest.new
-      lambda{my_suite.add_suite(test)}.should raise_error(EasyAutomation::SuiteException)
+      lambda{my_suite.add(WrongTest)}.should raise_error(EasyAutomation::SuiteException)
     end
     it "should accept suites if they extend from EasyAutomation::Test" do
       class TestClass < EasyAutomation::Test
+        def suite
+          true
+        end
         def method_name
           true
         end
       end
       my_suite = EasyAutomation::Suite.new
-      test  = TestClass.new('method_name', 'path')
-      my_suite.add_suite(test)
+      my_suite.add(TestClass)
       my_suite.suite.size.should be(1)
     end
   end

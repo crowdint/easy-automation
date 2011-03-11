@@ -20,11 +20,11 @@ module EasyAutomation
   class Runner
     class << self
       def configuration
-        @configuration ||= EasyAutomation::Config.new
+        @configuration ||= Config.new
       end
 
       def server
-        @selenium_server ||= EasyAutomation::Server.new
+        @selenium_server ||= Server.new
       end
 
       def configure
@@ -32,10 +32,10 @@ module EasyAutomation
       end
 
       def run test_suite
-        raise RunnerSuiteException.new('Wrong test suite class') unless test_suite.is_a?(EasyAutomation::Suite)
-        EasyAutomation::Server.rc.start
-        Test::Unit::UI::Console::TestRunner.run test_suite
-        EasyAutomation::Server.rc.stop
+        raise RunnerSuiteException.new('Wrong test suite class') unless test_suite.is_a?(Suite)
+        Server.rc.start
+        ::Test::Unit::UI::Console::TestRunner.run test_suite
+        Server.rc.stop
       end
     end
   end

@@ -13,7 +13,7 @@ module EasyAutomation
     @path = nil
 
     #TODO figure out why we need to pass the path from a child class
-    def initialize(test_methodname, path)
+    def initialize(test_methodname, path = ".")
       @path = path
       super(test_methodname)
     end
@@ -25,8 +25,8 @@ module EasyAutomation
     #   or use a global one.
     #
     def setup
-      @webpage             = EasyAutomation::Server.rc.open(EasyAutomation::Runner.configuration.browser,
-                                                            EasyAutomation::Runner.configuration.url)
+      @webpage             = Server.rc.open(Runner.configuration.browser,
+                                                            Runner.configuration.url)
       @data                = LoadData::load_test_data(self.class.to_s, @method_name, @path)
     end
 
@@ -36,6 +36,5 @@ module EasyAutomation
     def teardown
       @webpage.close
     end
-
   end
 end
