@@ -27,20 +27,34 @@ Design
 
 We will implement kind of MVC pattern for automation testing, separating xpath's information, data for tests and the runner.
 
-    +---------+       +----------+
-    | Pages   |<------| Elements |
-    +---------+       +----------+
-         |
-         v
+    +---------+       +----------------------+
+    | Pages   |<------| EasyAutomation::Page |
+    +---------+       +----------------------+
+         | \  +----------+
+         |   \| Elements |
+         v    +----------+
     +---------+       +----------+       +-------------+
     | Suite   |<----->| Runner   |<----->| Selenium RC |
     +---------+       +----------+       +-------------+
-         ^
-         |
-    +---------+       +----------+
-    | Tests   |<------| Data     |
-    +---------+       +----------+
+         ^    +--------+
+         |   /|  Data  |
+         |  / +--------+
+    +---------+       +----------------------+
+    | Tests   |<------| EasyAutomation::Test |
+    +---------+       +----------------------+
 
+Instead of work with actions => elements, we can use element => actions
+Normally:
+    Selenium.click('id:btn')
+    Selenium.enter('id:input_text', 'Text')
+
+With this framework:
+    page.btn.click
+    page.input_text.enter('Text')
+
+You have a lot of [actions](http://selenium.rubyforge.org/rdoc/classes/Selenium/WebPage.html) to use with your page elements, click, text, enter, etc.
+
+More Reference: http://selenium.rubyforge.org/rdoc/classes/Selenium/
 
 Example
 -------
@@ -97,16 +111,23 @@ runner_demo.rb
     demo_suite.add(MainPageTest)
     EasyAutomation::Runner.run demo_suite
 
+Find some working code under examples folder
+
 Roadmap
 -------
 * Fix that ugly path param on Page and Test initializers
+* Autoload all pages
+* Better data/elements including
+* Wait for element to be loaded event
+* Rake integration
 * Retry on failed tests
 * Parallel tests
 * Nice test results
+* Remote Selenium RC/Grid
 * History graphs
 * Performance analysis graphs
-* Better data/elements including
-* Remote Selenium RC/Grid
+
+Orde may matter
 
 Contributing
 ------------

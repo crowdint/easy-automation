@@ -5,6 +5,7 @@
 module EasyAutomation
   class Page < ::Selenium::WebPage
 
+    attr_reader :elements
     @elements
     @browser
 
@@ -21,21 +22,21 @@ module EasyAutomation
     # Gets body text
     #
     def html
-      @browser.html()
+      browser.html()
     end
 
     #
     # Returns page title
     #
     def title
-      @browser.title
+      browser.title
     end
 
     #
     # Waits for page to load
     #
     def wait_page_load
-      @browser.wait_for_load
+      browser.wait_for_load
     end
 
     #
