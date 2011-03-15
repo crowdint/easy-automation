@@ -106,18 +106,29 @@ mainpagetest.yml
 runner_demo.rb
     require 'rubygems'
     require 'easy-automation'
+    Dir["#{File.dirname(__FILE__)}/*/*.rb"].each { |f| require f }
 
+    EasyAutomation::Runner.configure do |config|
+      config.url = "http://www.google.com"
+      config.browser = "*safari"
+      config.before :all do
+        puts 'Starting Tests'
+      end
+      config.after :all do
+        puts 'Tests finished, halting'
+      end
+    end
     demo_suite = EasyAutomation::Suite.new('Demo')
     demo_suite.add(MainPageTest)
     EasyAutomation::Runner.run demo_suite
 
-Find some working code under examples folder
+Find some working code under examples folder, to see it search exmple on action, execute:
+    cd examples/search
+    bundle exec ruby example.rb
 
 Roadmap
 -------
-* Fix that ugly path param on Page and Test initializers
-* Autoload all pages
-* Better data/elements including
+* More hooks [before|after] [:all|:each] [:test|:suite]
 * Wait for element to be loaded event
 * Rake integration
 * Retry on failed tests
@@ -127,7 +138,7 @@ Roadmap
 * History graphs
 * Performance analysis graphs
 
-Orde may matter
+Order may matter
 
 Contributing
 ------------
