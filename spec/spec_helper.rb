@@ -13,3 +13,8 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
+class TestBlockClass
+  def self.return_the_true
+    true
+  end
+end

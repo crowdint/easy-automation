@@ -1,5 +1,11 @@
 require 'selenium'
 require 'test/unit/ui/console/testrunner'
-Dir.glob(File.join('.', 'lib', 'easy_automation', '*.rb')).each do |lib_file|
-  require lib_file
-end
+require 'easy_automation/config'
+require 'easy_automation/data_elements'
+require 'easy_automation/load_data'
+require 'easy_automation/page'
+require 'easy_automation/runner'
+require 'easy_automation/server'
+require 'easy_automation/suite'
+require 'easy_automation/test'
+require 'easy_automation/version'

@@ -20,7 +20,10 @@ module EasyAutomation
   class Runner
     class << self
       def configuration
-        @configuration ||= Config.new
+        unless @configuration
+          @configuration = Config.new
+        end
+        @configuration
       end
 
       def server
@@ -34,7 +37,9 @@ module EasyAutomation
       def run test_suite
         raise RunnerSuiteException.new('Wrong test suite class') unless test_suite.is_a?(Suite)
         Server.rc.start
+        configuration.execute :before, :all
         ::Test::Unit::UI::Console::TestRunner.run test_suite
+        configuration.execute :after, :all
         Server.rc.stop
       end
     end
