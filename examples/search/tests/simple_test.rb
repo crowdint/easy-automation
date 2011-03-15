@@ -1,9 +1,4 @@
-require 'easy_automation/test'
-class SimpleTest < EasyAutomation::Test
-  def initialize test_methodname
-    super(test_methodname, File.dirname(__FILE__))
-  end
-
+class SimpleTest < BaseTest
   def test_search_selenium
     main_page = HomePage.new(@webpage)
     results_page = ResultsPage.new(@webpage)

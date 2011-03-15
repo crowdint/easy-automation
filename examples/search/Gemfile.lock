@@ -1,0 +1,16 @@
+PATH
+  remote: ../../
+  specs:
+    easy-automation (0.0.1)
+      Selenium
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    Selenium (1.1.14)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  easy-automation!

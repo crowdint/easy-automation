@@ -1,19 +1,16 @@
 require 'rubygems'
-require 'ruby-debug'
-require '../../lib/easy-automation'
-require 'pages/home_page'
-require 'pages/results_page'
-require 'tests/simple_test'
-require 'easy_automation/runner'
-require 'easy_automation/config'
-require 'easy_automation/load_data'
-require 'easy_automation/data_elements'
-require 'easy_automation/suite'
-require 'easy_automation/server'
+require 'easy-automation'
+Dir["#{File.dirname(__FILE__)}/*/*.rb"].each { |f| require f }
 
 EasyAutomation::Runner.configure do |config|
   config.url = "http://www.google.com"
   config.browser = "*safari"
+  config.before :all do
+    puts 'Starting Tests'
+  end
+  config.after :all do
+    puts 'Tests finished, halting'
+  end
 end
 
 demo_suite = EasyAutomation::Suite.new('Example')
