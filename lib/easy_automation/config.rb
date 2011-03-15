@@ -35,9 +35,5 @@ module EasyAutomation
       @hooks[type.to_sym][hook_name.to_sym].call if @hooks[type.to_sym][hook_name.to_sym]
     end
 
-    def load_files pattern
-      puts '888888888888 ENTRE!!!'
-      Dir[pattern].each { |f| require f }
-    end
   end
 end
