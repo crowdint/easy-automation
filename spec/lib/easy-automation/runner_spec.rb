@@ -9,7 +9,7 @@ describe EasyAutomation::Runner do
       it "should default params" do
         EasyAutomation::Runner.configuration.selenium_port.should be(4444)
         EasyAutomation::Runner.configuration.selenium_timeout.should be(1000)
-        EasyAutomation::Runner.configuration.browser.should == "* firefox"
+        EasyAutomation::Runner.configuration.browsers.should == ["* firefox"]
         EasyAutomation::Runner.configuration.url.should == "http://www.google.com"
       end
 
@@ -22,7 +22,7 @@ describe EasyAutomation::Runner do
         end
         EasyAutomation::Runner.configuration.selenium_port.should be(44444)
         EasyAutomation::Runner.configuration.selenium_timeout.should be(40000)
-        EasyAutomation::Runner.configuration.browser.should == "Chrome"
+        EasyAutomation::Runner.configuration.browsers.should == ["Chrome"]
         EasyAutomation::Runner.configuration.url.should == "http://www.yahoo.com"
       end
     end
@@ -60,22 +60,33 @@ describe EasyAutomation::Runner do
       EasyAutomation::Runner.run EasyAutomation::Suite.new('test')
     end
   end
+
   context "before and after each test hooks" do
     before :each do
       EasyAutomation::Runner.configure do |config|
         config.before :each_test do
           TestBlockClass.before_each_test
         end
+        config.after :each_test do
+          TestBlockClass.after_each_test
+        end
       end
       @suite = EasyAutomation::Suite.new('test')
       @suite.add(HomeTest)
       rc = mock(EasyAutomation::Server)
+      webpage = mock(Selenium::Server)
       EasyAutomation::Server.stub(:rc).and_return(rc)
-      Test::Unit::UI::Console::TestRunner.stub(:run).and_return(true)
       rc.should_receive(:start)
       rc.should_receive(:stop)
+      rc.should_receive(:open).and_return(webpage)
+      webpage.should_receive(:close).any_number_of_times
     end
-    it "should call :each_test before any test" do
+    it "should call :before_each_test before any test" do
+      TestBlockClass.should_receive(:before_each_test)
+      EasyAutomation::Runner.run @suite
+    end
+    it "should call :after_each_test after any test" do
+      TestBlockClass.should_receive(:after_each_test)
       EasyAutomation::Runner.run @suite
     end
   end
@@ -94,6 +105,30 @@ describe EasyAutomation::Runner do
         Selenium::Server.should_not_receive(:new)
         EasyAutomation::Runner.run EasyAutomation::Suite.new('test')
       end
+    end
+  end
+
+  context "multiple browsers" do
+    before :each do
+      rc = mock(EasyAutomation::RemoteServer)
+      webpage = mock(Selenium::Server)
+      rc.should_receive(:start)
+      rc.should_receive(:stop)
+      rc.should_receive(:open).any_number_of_times().and_return(webpage)
+      webpage.should_receive(:close).any_number_of_times()
+      EasyAutomation::RemoteServer.should_receive(:new).and_return(rc)
+    end
+    it "should run all tests against every single browser specified on config" do
+      EasyAutomation::Runner.configure do |config|
+        config.selenium_host = "localhost"
+        config.add_browser "*firefox"
+        config.add_browser "*safari"
+      end
+      EasyAutomation::Server.rc true
+      test_suite = EasyAutomation::Suite.new('test')
+      Test::Unit::UI::Console::TestRunner.should_receive(:run).at_least(2).times()
+      test_suite.add(HomeTest)
+      EasyAutomation::Runner.run test_suite
     end
   end
 end

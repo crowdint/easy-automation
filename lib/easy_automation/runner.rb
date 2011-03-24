@@ -34,7 +34,10 @@ module EasyAutomation
         raise RunnerSuiteException.new('Wrong test suite class') unless test_suite.is_a?(Suite)
         Server.rc.start
         configuration.execute :before, :all
-        ::Test::Unit::UI::Console::TestRunner.run test_suite
+        configuration.browsers.each do |browser|
+          configuration.current_browser = browser
+          ::Test::Unit::UI::Console::TestRunner.run test_suite
+        end
         configuration.execute :after, :all
         Server.rc.stop
       end

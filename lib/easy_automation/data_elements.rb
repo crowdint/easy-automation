@@ -6,15 +6,15 @@
 #
 module EasyAutomation
   class DataElements
-    @elements = {}
 
     #
     # Builds magic functions to handle elements
     # @params hash key => value
     #
     def initialize(elements)
-      @elements = elements
-      elements.each do |key, value|
+      @elements = {}
+      @elements.merge!(elements || {})
+      @elements.each do |key, value|
         if (value.class.to_s == "Array" || value.class.to_s == "Hash")
           eval (%{
             def #{key}

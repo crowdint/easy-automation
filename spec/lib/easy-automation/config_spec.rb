@@ -21,4 +21,23 @@ describe EasyAutomation::Config do
       end
     end
   end
+
+  context "#browsers" do
+    context "single browser" do
+      it "should allow single browser assignment, backward compatibility" do
+        config = EasyAutomation::Config.new
+        config.browser = "* chrome"
+        config.browsers.size.should == 1
+        config.current_browser.should == config.browsers.first
+      end
+      it "should allow to specify multiples browsers" do
+        config = EasyAutomation::Config.new
+        config.add_browser "* chrome"
+        config.browsers << "* firefox"
+        config.add_browser "* safari"
+        config.browsers.size.should == 3
+        config.current_browser.should == config.browsers.first
+      end
+    end
+  end
 end

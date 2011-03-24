@@ -26,7 +26,7 @@ module EasyAutomation
     #
     def setup
       Runner.configuration.execute :before, :each_test
-      @webpage             = Server.rc.open(Runner.configuration.browser,
+      @webpage             = Server.rc.open(Runner.configuration.current_browser,
                                                             Runner.configuration.url)
       @data                = LoadData::load_test_data(self.class.to_s, @method_name, @path)
     end
@@ -36,6 +36,7 @@ module EasyAutomation
     #
     def teardown
       @webpage.close
+      Runner.configuration.execute :after, :each_test
     end
   end
 end

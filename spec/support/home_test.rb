@@ -9,4 +9,8 @@ class HomeTest < EasyAutomation::Test
 
   def two
   end
+
+  def test_hooks
+    true
+  end
 end

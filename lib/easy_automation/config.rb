@@ -9,19 +9,37 @@ module EasyAutomation
     attr_accessor :selenium_port
     attr_accessor :selenium_timeout
     attr_accessor :selenium_host
-    attr_accessor :browser
     attr_accessor :url
+    attr_accessor :current_browser
+    attr_accessor :browsers
     attr_reader :hooks
+
 
     #
     # Default settings for selenium RC
     #
     def initialize
+      @browsers = []
       @selenium_port = 4444
       @selenium_timeout = 1000
-      @browser = "* firefox"
       @url = "http://www.google.com"
       @hooks = {:before => {}, :after =>{}}
+    end
+
+    def browser=(browser)
+      @browsers = [browser]
+    end
+
+    def add_browser browser
+      @browsers << browser
+    end
+
+    def browsers
+      @browsers.empty? ? ["* firefox"] : @browsers
+    end
+
+    def current_browser
+      @current_browser || @browsers.first
     end
 
     def before hook, &block
