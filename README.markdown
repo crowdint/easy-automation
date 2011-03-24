@@ -56,6 +56,41 @@ You have a lot of [actions](http://selenium.rubyforge.org/rdoc/classes/Selenium/
 
 More Reference: http://selenium.rubyforge.org/rdoc/classes/Selenium/
 
+Runner - Configuring your tests
+------
+You can change any behaviour using EasyAutomation::Runner.config helper, options:
+    EasyAutomation::Runner.configure do |config|
+      # Selenium Configurations
+      config.url = "http://www.google.com"
+      config.browser = "*safari" # "*firefox", "*chrome"
+      config.selenium_port = 4444
+      config.selenium_timeout = 1000
+      #if specified, it won't start selenium RC and will attempt to connect to remote selenium server
+      config.selenium_host = "localhost"
+
+      # Hooks
+      config.before :all do
+        puts 'Starting Tests'
+      end
+      config.after :all do
+        puts 'Tests finished, halting'
+      end
+
+      config.before :each_test do
+        # Do something
+      end
+      config.after :each_test do
+        # Do something
+      end
+
+      config.before :each_suite do
+        # Do something
+      end
+      config.after :each_suite do
+        # Do something
+      end
+    end
+
 Example
 -------
 Structure:
@@ -129,6 +164,8 @@ Find some working code under examples folder, to see it search exmple on action,
 Roadmap
 -------
 * More hooks [before|after] [:all|:each] [:test|:suite]
+* Update Selenium gem to use latest selenium-RC and fix weird firefox crashes.
+* Multi browser
 * Wait for element to be loaded event
 * Rake integration
 * Retry on failed tests
@@ -139,6 +176,18 @@ Roadmap
 * Performance analysis graphs
 
 Order may matter
+
+
+Version Changes
+--------
+From 0.0.1 to 0.0.2
+* Multiple browsers support
+* [before|after] [:all|:each] [:test|:suite] hooks
+* Remote Selenium RC
+
+From 0.0.2 to 0.1.0
+* Retry failed tests
+* Selenium Grid integration
 
 Contributing
 ------------
