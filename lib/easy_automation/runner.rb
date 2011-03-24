@@ -26,10 +26,6 @@ module EasyAutomation
         @configuration
       end
 
-      def server
-        @selenium_server ||= Server.new
-      end
-
       def configure
         yield configuration
       end

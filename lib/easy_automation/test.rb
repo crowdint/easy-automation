@@ -25,6 +25,7 @@ module EasyAutomation
     #   or use a global one.
     #
     def setup
+      Runner.configuration.execute :before, :each_test
       @webpage             = Server.rc.open(Runner.configuration.browser,
                                                             Runner.configuration.url)
       @data                = LoadData::load_test_data(self.class.to_s, @method_name, @path)

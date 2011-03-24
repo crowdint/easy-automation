@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler'
 
+puts File.dirname(__FILE__)
 require File.join(File.dirname(__FILE__), '..', 'lib/easy-automation')
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
@@ -15,6 +16,18 @@ end
 
 class TestBlockClass
   def self.return_the_true
+    true
+  end
+  def self.before_each_suite
+    true
+  end
+  def self.before_each_test
+    true
+  end
+  def self.after_each_suite
+    true
+  end
+  def self.after_each_test
     true
   end
 end

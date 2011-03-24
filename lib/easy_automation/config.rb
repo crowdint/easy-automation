@@ -8,6 +8,7 @@ module EasyAutomation
   class Config
     attr_accessor :selenium_port
     attr_accessor :selenium_timeout
+    attr_accessor :selenium_host
     attr_accessor :browser
     attr_accessor :url
     attr_reader :hooks
@@ -18,7 +19,7 @@ module EasyAutomation
     def initialize
       @selenium_port = 4444
       @selenium_timeout = 1000
-      @browser = "Firefox"
+      @browser = "* firefox"
       @url = "http://www.google.com"
       @hooks = {:before => {}, :after =>{}}
     end

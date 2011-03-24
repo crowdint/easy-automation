@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe EasyAutomation::Config do
   subject {Config}
 
-  context "before hooks" do
+  context "#hooks" do
     context "when specifying any hook" do
       before :each do
         @config = EasyAutomation::Config.new
