@@ -4,7 +4,10 @@ Dir["#{File.dirname(__FILE__)}/*/*.rb"].each { |f| require f }
 
 EasyAutomation::Runner.configure do |config|
   config.url = "http://www.google.com"
-  config.browser = "*safari"
+  config.add_browser "*firefox"
+  config.add_browser "*googlechrome /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+  config.selenium_timeout = 10000
+#  config.selenium_host = "remote_ip"
   config.before :all do
     puts 'Starting Tests'
   end

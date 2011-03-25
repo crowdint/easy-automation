@@ -180,12 +180,15 @@ Order may matter
 
 Version Changes
 --------
+
 From 0.0.1 to 0.0.2
+--------
 * Multiple browsers support
 * [before|after] [:all|:each] [:test|:suite] hooks
 * Remote Selenium RC
 
 From 0.0.2 to 0.1.0
+-------
 * Retry failed tests
 * Selenium Grid integration
 

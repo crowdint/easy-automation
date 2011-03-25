@@ -21,7 +21,7 @@ module EasyAutomation
     def initialize
       @browsers = []
       @selenium_port = 4444
-      @selenium_timeout = 1000
+      @selenium_timeout = 4000
       @url = "http://www.google.com"
       @hooks = {:before => {}, :after =>{}}
     end
