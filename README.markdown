@@ -3,16 +3,8 @@ Easy Automation
 
 Friendly Automation Testing Framework, tired of update every single test when developers change an XPath, id, class, etc? This is for you.
 
-Design
-------
-
-This framework uses common patterns to make maintainability easy and scalable tests. It's divided in:
-
-* Pages
-* Page Elements
-* Test
-* Data for Tests
-* Runner
+Why another automation testing framework?
+======
 
 Challenges when developing automated tests
 ------
@@ -21,6 +13,18 @@ Challenges when developing automated tests
 * Separate components in order to allow easy patching for new changes.
 * Some tests depend in other
 * If you need to update data used by test, you touch test code
+
+Maintainability
+------
+
+This framework uses common patterns to make maintainability easy and scalable tests. It's divided in:
+
+* Pages, mapped to actual pages on your systems
+* Page Elements, defining every single element in your pages needed by tests, each element has actions
+* Test, tests checking your site
+* Data for Tests, do you want to modify login credentials or run it using different ones? change it in a single place, and you're done
+* Runner, you can group multiples tests to perform full tests, run stable ones, smock check, etc.
+* Hooks, do you want to call a service that resets the db before every single test? it's already implemented.
 
 Design
 ------
@@ -90,6 +94,23 @@ You can change any behaviour using EasyAutomation::Runner.config helper, options
         # Do something
       end
     end
+
+You can modify the behaviour via command line arguments, it's very useful when you want to run the same tests against different url, browser, etc, for example:
+    bundle exec ruby example.rb --url=http://google.com
+This will run the example provided against http://google.com instead of http://www.google.com defined on the configure block, another example:
+
+    bundle exec ruby example.rb --url=http://images.google.com --browser=*safari
+This will run example tests against images.google.com using safari browser
+
+
+Installation
+-------
+Bundler:
+    echo "gem 'easy-automation' " >> Gemfile
+    bundle install
+
+Gems:
+    gem install easy-automation
 
 Example
 -------
@@ -166,6 +187,7 @@ Roadmap
 * More hooks [before|after] [:all|:each] [:test|:suite]
 * Update Selenium gem to use latest selenium-RC and fix weird firefox crashes.
 * Multi browser
+* Arguments via command line, done
 * Wait for element to be loaded event
 * Rake integration
 * Retry on failed tests
@@ -187,10 +209,17 @@ From 0.0.1 to 0.0.2
 * [before|after] [:all|:each] [:test|:suite] hooks
 * Remote Selenium RC
 
+From 0.0.2 to 0.0.3
+-------
+* Arguments support
+
+
 From 0.0.2 to 0.1.0
 -------
 * Retry failed tests
+* Better test reporting
 * Selenium Grid integration
+
 
 Contributing
 ------------
@@ -201,3 +230,12 @@ Contributing
 4. Push to the branch (`git push origin my_branch`)
 5. Create an [Issue][1] with a link to your branch
 6. Enjoy a refreshing Beer and wait
+
+
+About the Author
+------------
+[Crowd Interactive](http://www.crowdint.com) is a Ruby and Rails consultancy firm
+powered by a team of enthusiast engineers who love programming.
+We turn your ideas into web applications, and we like challenging projects. We also have
+a lot of experience in retail, so it doesn't matter if your idea is about
+something you'd like to sell, we can surely help you.

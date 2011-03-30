@@ -1,7 +1,7 @@
 PATH
   remote: ../../
   specs:
-    easy-automation (0.0.1)
+    easy-automation (0.0.2)
       Selenium
 
 GEM

@@ -8,7 +8,7 @@ describe EasyAutomation::Runner do
     context "selenium params" do
       it "should default params" do
         EasyAutomation::Runner.configuration.selenium_port.should be(4444)
-        EasyAutomation::Runner.configuration.selenium_timeout.should be(1000)
+        EasyAutomation::Runner.configuration.selenium_timeout.should be(4000)
         EasyAutomation::Runner.configuration.browsers.should == ["* firefox"]
         EasyAutomation::Runner.configuration.url.should == "http://www.google.com"
       end

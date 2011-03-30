@@ -1,5 +1,6 @@
 require 'selenium'
 require 'test/unit/ui/console/testrunner'
+require 'easy_automation/args'
 require 'easy_automation/config'
 require 'easy_automation/data_elements'
 require 'easy_automation/load_data'

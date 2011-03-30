@@ -16,6 +16,8 @@ EasyAutomation::Runner.configure do |config|
   end
 end
 
+EasyAutomation::Args.parse(ARGV) unless ARGV.empty?
+
 demo_suite = EasyAutomation::Suite.new('Example')
 demo_suite.add(SimpleTest)
 EasyAutomation::Runner.run demo_suite
